@@ -6,8 +6,6 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 2785
       - key: API_MASTER_KEY
         value: openwa-render-key-2026
       - key: DATABASE_TYPE
@@ -42,9 +40,5 @@ services:
         value: "false"
       - key: AUTO_START_SESSIONS
         value: "true"
-    disk:
-      name: openwa-data
-      mountPath: /app/data
-      sizeGB: 1
     healthCheckPath: /api/health
     plan: free
