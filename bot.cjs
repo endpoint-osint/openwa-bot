@@ -1,7 +1,8 @@
 const { io } = require('socket.io-client');
 
 const API_KEY = process.env.OPENWA_API_KEY || process.env.API_MASTER_KEY || 'openwa-dev-key-2026';
-const BASE_URL = process.env.OPENWA_URL || 'http://localhost:2785';
+const PORT = process.env.PORT || 2785;
+const BASE_URL = process.env.OPENWA_URL || `http://localhost:${PORT}`;
 
 let SESSION_ID = null;
 
