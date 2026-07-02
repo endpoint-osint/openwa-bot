@@ -93,6 +93,11 @@ COPY --from=builder /app/dist ./dist
 # (app.module.ts resolves dashboard/dist relative to dist/). Single container, single port.
 COPY --from=builder /app/dashboard/dist ./dashboard/dist
 
+# Copy bot files
+COPY bot.cjs ./
+COPY start.sh ./
+RUN chmod +x ./start.sh
+
 # Create data directories with correct ownership
 RUN mkdir -p ./data/sessions ./data/media && \
     chown -R openwa:openwa /app
@@ -123,4 +128,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
 # It execs docker-entrypoint.sh (as root), which fixes volume ownership and
 # then drops to the openwa user via gosu before starting the node process.
 ENTRYPOINT ["dumb-init", "--", "/usr/local/bin/docker-entrypoint.sh"]
-CMD ["node", "dist/main"]
+CMD ["./start.sh"]

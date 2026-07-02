@@ -1,0 +1,50 @@
+services:
+  - type: web
+    name: openwa
+    runtime: docker
+    dockerfilePath: Dockerfile
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 2785
+      - key: API_MASTER_KEY
+        value: openwa-render-key-2026
+      - key: DATABASE_TYPE
+        value: sqlite
+      - key: DATABASE_NAME
+        value: ./data/openwa.sqlite
+      - key: DATABASE_SYNCHRONIZE
+        value: "true"
+      - key: ENGINE_TYPE
+        value: whatsapp-web.js
+      - key: SESSION_DATA_PATH
+        value: ./data/sessions
+      - key: PUPPETEER_HEADLESS
+        value: "true"
+      - key: PUPPETEER_ARGS
+        value: "--no-sandbox,--disable-setuid-sandbox,--disable-dev-shm-usage"
+      - key: STORAGE_TYPE
+        value: local
+      - key: STORAGE_LOCAL_PATH
+        value: ./data/media
+      - key: REDIS_ENABLED
+        value: "false"
+      - key: REDIS_BUILTIN
+        value: "false"
+      - key: QUEUE_ENABLED
+        value: "false"
+      - key: CACHE_ENABLED
+        value: "false"
+      - key: POSTGRES_BUILTIN
+        value: "false"
+      - key: MINIO_BUILTIN
+        value: "false"
+      - key: AUTO_START_SESSIONS
+        value: "true"
+    disk:
+      name: openwa-data
+      mountPath: /app/data
+      sizeGB: 1
+    healthCheckPath: /api/health
+    plan: free
