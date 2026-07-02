@@ -30,7 +30,6 @@ RUN npm ci --omit=dev && npm cache clean --force
 
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/dashboard/dist ./dashboard/dist
-COPY bot.cjs ./
 
 RUN mkdir -p ./data/sessions ./data/media
 
@@ -39,4 +38,4 @@ EXPOSE 2785
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
     CMD curl -f http://localhost:2785/api/health || exit 1
 
-CMD ["sh", "-c", "node dist/main.js & sleep 20 && node bot.cjs & wait"]
+CMD ["node", "dist/main.js"]
